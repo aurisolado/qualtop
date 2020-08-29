@@ -40,7 +40,7 @@ public class EmployeesController {
 
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Employee> getEmployee(@PathVariable("id") Long id) {
+    public ResponseEntity<Employee> getEmployee(@PathVariable("id") String id) {
         Employee employee =  employeesService.getEmployee(id);
         if (null==employee){
             return ResponseEntity.notFound().build();
@@ -49,16 +49,16 @@ public class EmployeesController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee product, BindingResult result){
+    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee, BindingResult result){
         if (result.hasErrors()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, this.formatMessage(result));
         }
-        Employee productCreate =  employeesService.createEmployee(product);
+        Employee productCreate =  employeesService.createEmployee(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(productCreate);
     }
 
    @PutMapping(value = "/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable("id") Long id, @RequestBody Employee employee){
+    public ResponseEntity<Employee> updateEmployee(@PathVariable("id") String id, @RequestBody Employee employee){
         employee.setId(id);
         Employee productDB =  employeesService.updateEmployee(employee);
         if (productDB == null){
@@ -68,7 +68,7 @@ public class EmployeesController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Employee> deleteEmployee(@PathVariable("id") Long id){
+    public ResponseEntity<Employee> deleteEmployee(@PathVariable("id") String id){
         Employee productDelete = employeesService.deleteEmployee(id);
         if (productDelete == null){
             return ResponseEntity.notFound().build();

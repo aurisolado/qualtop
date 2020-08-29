@@ -11,18 +11,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotEmpty;
 
-@Document(collection = "empleados")
+@Document("empleados")
 @Data
 @AllArgsConstructor @NoArgsConstructor @Builder
 public class Employee {
 
 
     @Id
-    private Long id;
+    private String id;
 
     @NotEmpty(message = "El nombre no debe ser vacío")
     private String nombre;
-    @NotEmpty(message = "El sueldo no debe ser vacío")
     private Double sueldo;
     @NotEmpty(message = "La empresa no debe ser vacío")
     private String empresa;

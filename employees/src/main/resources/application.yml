@@ -10,7 +10,7 @@ spring:
     name: employees-service
   data:
     mongodb:
-      uri: mongodb+srv://edwin:XyXzd1rbTXocfCFL@cluster0.fqtab.azure.mongodb.net/test?retryWrites=true&w=majority
+      uri: mongodb+srv://edwin:XyXzd1rbTXocfCFL@cluster0.fqtab.azure.mongodb.net/edwin?retryWrites=true&w=majority
 
 
 logging:

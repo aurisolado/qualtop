@@ -4,6 +4,8 @@ import com.qualtop.employees.entity.Employee;
 
 import com.qualtop.employees.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmployeesServiceImpl implements EmployeesService{
@@ -26,8 +29,8 @@ public class EmployeesServiceImpl implements EmployeesService{
     }
 
     @Override
-    public Employee getEmployee(Long id) {
-        Optional<Employee> employees = employeeRepository.findById( ""+id );
+    public Employee getEmployee(String id) {
+        Optional<Employee> employees = employeeRepository.findById( id );
         return employees.get();
     }
 
@@ -39,11 +42,13 @@ public class EmployeesServiceImpl implements EmployeesService{
 
     @Override
     public Employee updateEmployee(Employee employee) {
-        Optional<Employee> s = this.employeeRepository.findById(employee.getId().toString());
+        log.info("Actualizar empleado " + employee.getId());
+        Optional<Employee> s = this.employeeRepository.findById(employee.getId());
 
         if( !s.isPresent() ) {
             throw new Error("El empleado no existe");
         }else{
+            BeanUtils.copyProperties( employee, s.get() );
             employeeRepository.save( s.get() );
         }
 
@@ -51,8 +56,8 @@ public class EmployeesServiceImpl implements EmployeesService{
     }
 
     @Override
-    public Employee deleteEmployee(Long id) {
-        Optional<Employee> s = this.employeeRepository.findById(""+id);
+    public Employee deleteEmployee(String id) {
+        Optional<Employee> s = this.employeeRepository.findById(id);
 
         if( !s.isPresent() ) {
             throw new Error("El empleado no existe");
