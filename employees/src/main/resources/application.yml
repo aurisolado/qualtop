@@ -1,0 +1,27 @@
+#Application Configuration
+server:
+  port: 8091
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  application:
+    name: employees-service
+  data:
+    mongodb:
+      uri: mongodb+srv://edwin:XyXzd1rbTXocfCFL@cluster0.fqtab.azure.mongodb.net/test?retryWrites=true&w=majority
+
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://54.210.27.46:8091/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
