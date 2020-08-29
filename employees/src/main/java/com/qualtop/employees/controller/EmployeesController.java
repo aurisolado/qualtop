@@ -26,6 +26,7 @@ public class EmployeesController {
     @Autowired
     private EmployeesService employeesService;
 
+    @CrossOrigin
     @GetMapping
     public ResponseEntity<List<Employee>> listEmployees(){
         List<Employee> employees = new ArrayList<>();
@@ -39,6 +40,7 @@ public class EmployeesController {
     }
 
 
+    @CrossOrigin
     @GetMapping(value = "/{id}")
     public ResponseEntity<Employee> getEmployee(@PathVariable("id") String id) {
         Employee employee =  employeesService.getEmployee(id);
@@ -48,6 +50,7 @@ public class EmployeesController {
         return ResponseEntity.ok(employee);
     }
 
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee, BindingResult result){
         if (result.hasErrors()){
@@ -57,6 +60,7 @@ public class EmployeesController {
         return ResponseEntity.status(HttpStatus.CREATED).body(productCreate);
     }
 
+    @CrossOrigin
    @PutMapping(value = "/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable("id") String id, @RequestBody Employee employee){
         employee.setId(id);
@@ -67,6 +71,7 @@ public class EmployeesController {
         return ResponseEntity.ok(productDB);
     }
 
+    @CrossOrigin
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Employee> deleteEmployee(@PathVariable("id") String id){
         Employee productDelete = employeesService.deleteEmployee(id);
